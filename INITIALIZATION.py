@@ -1,5 +1,5 @@
 import mysql.connector as mcon
-con = mcon.connect(host = "localhost", user = "root", passwd = "#Vinu@5142.", charset = "utf8")
+con = mcon.connect(host = "localhost", user = "root", passwd = "", charset = "utf8")
 if con.is_connected() == True:
     print("CONNECTION SUCCESSFULL")
 else:
