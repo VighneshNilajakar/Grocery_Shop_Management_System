@@ -1,11 +1,12 @@
 import mysql.connector as mcon
 print("INITIALIZING..........")
-con = mcon.connect(host = "localhost", user = "root", passwd = "", charset = "utf8")
+con = mcon.connect(host = "localhost", user = "root", passwd = "#Vinu@5142.", charset = "utf8")
 if con.is_connected() == True:
     print("CONNECTION SUCCESSFULL")
 else:
     print("ERROR CONNECTING MYSQL")
 cur = con.cursor()
+cur.execute("DROP DATABASE IF EXISTS GROCERY_MANAGEMENT_SYS")
 cur.execute("CREATE DATABASE IF NOT EXISTS GROCERY_MANAGEMENT_SYS;")
 cur.execute("USE GROCERY_MANAGEMENT_SYS;")
 print("CREATED REQUIRED DATABASES")
