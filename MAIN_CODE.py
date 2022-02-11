@@ -1,4 +1,6 @@
-print("STARTING SOFTWARE---\n\n")
+import mysql.connector as mcon
+con = mcon.connect(host = "localhost", user = "root", passwd = "", database = "GROCERY_MANAGEMENT_SYS", charset = "utf8")
+cur = con.cursor()
 msg1 = "GROCERY MANAGEMENT SYSTEM"
 pmsg1 = msg1.center(120)
 print(pmsg1)
@@ -7,29 +9,34 @@ print("1. PRODUCT DETAILS\n2. CUSTOMER DETAILS")
 try:
     choice=int(input('ENTER YOUR CHOICE (1/2):- '))
     if choice==1:
-        print("<1>PRODUCT DETAILS\n<2>ADD PRODUCT\n<3>REMOVE PRODUCT")
+        print("1. PRODUCT DETAILS\n2. ADD PRODUCT'S DATA\n3. REMOVE PRODUCT'S DATA\n4. UPDATE PRODUCT'S DATA")
         try:
-            prod_choice=int(input('Enter your choice: '))
+            prod_choice=int(input('ENTER YOUR CHOICE (1/2/3/4):- '))
             if prod_choice==1:
                 cur.execute("SELECT * FROM PROD_DETAILS;")
                 prod_data=cur.fetchall()
                 for i in prod_data:
                     print(i)
             elif prod_choice==2:
-                prod_name=input('Enter product name: ')
-                prod_sell_cost=int(input('Enter product selling price: '))
+                prod_name=input("ENTER PRODUCT'S NAME :- ")
+                prod_sell_cost=int(input("ENTER PRODUCT'S SELLING COST :- "))
                 cur.execute("INSERT INTO PROD_DETAILS(PROD_NAME,PROD_SELL_COST) VALUES('{}',{})".format(prod_name,prod_sell_cost))
                 con.commit()
-                print('Product added successfully')
+                print("PRODUCT'S DATA ADDED SUCCESSFULLY")
             elif prod_choice==3:
-                prod_id=int(input('Enter the product id you want to remove: '))
+                prod_id=int(input("ENTER ID OF THE PRODUCT YOU WANT TO REMOVE :- "))
                 cur.execute("DELETE FROM PROD_DETAILS WHERE PROD_ID = {}".format(prod_id))
                 con.commit()
-                print('product removed successfully')
+                print("PRODUCT REMOVED SUCCESSFULLY")
+            #elif prod_choice==4: Product Modification
+             #   prod_id=int(input("ENTER ID OF THE PRODUCT YOU WANT TO REMOVE :- "))
+              #  cur.execute("DELETE FROM PROD_DETAILS WHERE PROD_ID = {}".format(prod_id))
+               # con.commit()
+                #print("PRODUCT REMOVED SUCCESSFULLY")
             else:
                 print()
         except:
-            print('Invalid input')
+            print("INVALID INPUT")
 
     elif choice==2:
         print("<1>CUSTORMER DETAILS\n<2>ADD CUSTOMER\n<3>REMOVE CUSTOMER\n<4>UPDATE CUSTOMER")
