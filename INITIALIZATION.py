@@ -1,11 +1,11 @@
 import mysql.connector as mcon
+print("INITIALIZING..........")
 con = mcon.connect(host = "localhost", user = "root", passwd = "", charset = "utf8")
 if con.is_connected() == True:
     print("CONNECTION SUCCESSFULL")
 else:
     print("ERROR CONNECTING MYSQL")
 cur = con.cursor()
-print("INITIALIZING...")
 cur.execute("CREATE DATABASE IF NOT EXISTS GROCERY_MANAGEMENT_SYS;")
 cur.execute("USE GROCERY_MANAGEMENT_SYS;")
 print("CREATED REQUIRED DATABASES")
@@ -14,3 +14,8 @@ cur.execute("CREATE TABLE IF NOT EXISTS PROD_BUY_COST (PROD_BUY_COST INT(20) NOT
 cur.execute("CREATE TABLE IF NOT EXISTS CUST_DETAILS (CUST_ID INT(3) AUTO_INCREMENT PRIMARY KEY, CUST_NAME VARCHAR(30) NOT NULL, CUST_ADRS VARCHAR (200), CUST_MNO INT(10) NOT NULL);")
 cur.execute("CREATE TABLE IF NOT EXISTS MAN_DETAILS (MAN_ID INT(3) AUTO_INCREMENT PRIMARY KEY, MAN_NAME VARCHAR(200) NOT NULL);")
 print("CREATED REQUIRED TABLES")
+print("REQUIREMENTS INITIALIZED")
+print("STARTING SOFTWARE---\n\n\n")
+msg1 = "GROCERY MANAGEMENT SYSTEM"
+pmsg1 = msg1.center(120)
+print(pmsg1)
