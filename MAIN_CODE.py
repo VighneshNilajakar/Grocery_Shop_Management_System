@@ -1,4 +1,5 @@
 import mysql.connector as mcon
+import time
 con = mcon.connect(host = "localhost", user = "root", passwd = "", database = "GROCERY_MANAGEMENT_SYS")
 cur = con.cursor()
 msg1 = "GROCERY MANAGEMENT SYSTEM"
@@ -9,9 +10,9 @@ print("1. PRODUCT DETAILS\n2. CUSTOMER DETAILS\n3. MANUFACTURER DETAILS\n4. QUIT
 try:
     choice=int(input('ENTER YOUR CHOICE (1/2/3/4):- '))
     if choice==1:
-        print("1. PRODUCT DETAILS\n2. ADD PRODUCT'S DATA\n3. REMOVE PRODUCT'S DATA\n4. UPDATE PRODUCT'S DATA")
+        print("1. PRODUCT DETAILS\n2. ADD PRODUCT'S DATA\n3. REMOVE PRODUCT'S DATA\n4. UPDATE PRODUCT'S DATA\n5. QUIT")
         try:
-            prod_choice=int(input('ENTER YOUR CHOICE (1/2/3/4):- '))
+            prod_choice=int(input('ENTER YOUR CHOICE (1/2/3/4/5):- '))
             if prod_choice==1:
                 cur.execute("SELECT * FROM PROD_DETAILS;")
                 prod_data=cur.fetchall()
@@ -28,13 +29,28 @@ try:
                 cur.execute("DELETE FROM PROD_DETAILS WHERE PROD_ID = {}".format(prod_id))
                 con.commit()
                 print("PRODUCT'S DATA REMOVED SUCCESSFULLY")
-            #elif prod_choice==4: Product Modification
-             #   prod_id=int(input("ENTER ID OF THE PRODUCT YOU WANT TO REMOVE :- "))
-              #  cur.execute("DELETE FROM PROD_DETAILS WHERE PROD_ID = {}".format(prod_id))
-               # con.commit()
-                #print("PRODUCT REMOVED SUCCESSFULLY")
+            elif prod_choice==4:
+                print("WHAT YOU WANT TO UPDATE :- ")
+                print("1. PRODUCT'S NAME\n2. PRODUCTS'S SELL COST")
+                update_prod=int(input("ENTER YOUR CHOICE (1/2/3):- "))
+                which_prod=int(input("ENTER PRODUCT'S ID :- "))
+                if update_prod==1:
+                    prod_name=input("ENTER PRODUCT'S NAME :- ")
+                    cur.execute("UPDATE PROD_DETAILS SET PROD_NAME = '{}' WHERE PROD_ID = {}".format(prod_name,which_prod))
+                    con.commit()
+                    print("PRODUCTS'S NAME UPDATED SUCCESSFULLY")
+
+                elif update_prod==2:
+                    prod_update_scost=input("ENTER PRODUCT'S NEW SELLING COST :- ")
+                    cur.execute("UPDATE PROD_DETAILS SET PROD_SELL_COST = '{}' WHERE PROD_ID = {}".format(prod_update_scost,which_prod))
+                    con.commit()
+                    print("PRODUCT'S SELLING UPDATED SUCCESSFULLY")
+            elif prod_choice==5:
+                print("EXITING PROGRAM...")
+                time.sleep(2)
+                quit()
             else:
-                print()
+                print('INVALID INPUT')
         except:
             print("INVALID INPUT")
 
@@ -88,6 +104,14 @@ try:
             else:
                 print('INVALID INPUT')
         except:
-            print('INVALID INPUT')
+            print("INVALID INPUT")
+    elif choice==3:
+        print("MANUFACTURER")
+    elif choice==4:
+        print("EXITING PROGRAM...")
+        time.sleep(2)
+        quit()
+    else:
+        print('INVALID INPUT')
 except:
-    print('INVALID INPUT')
+    print("INVALID INPUT")
