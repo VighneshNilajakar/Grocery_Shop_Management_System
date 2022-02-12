@@ -16,19 +16,52 @@ try:
             if prod_choice==1:
                 cur.execute("SELECT * FROM PROD_DETAILS;")
                 prod_data=cur.fetchall()
-                for i in prod_data:
-                    print(i)
+                if len(prod_data) > 0 :
+                    for i in prod_data :
+                        print(i)
+                else :
+                    print("STOCK IS EMPTY")
             elif prod_choice==2:
-                prod_name=input("ENTER PRODUCT'S NAME :- ")
-                prod_sell_cost=int(input("ENTER PRODUCT'S SELLING COST :- "))
-                cur.execute("INSERT INTO PROD_DETAILS(PROD_NAME,PROD_SELL_COST) VALUES('{}',{})".format(prod_name,prod_sell_cost))
-                con.commit()
-                print("PRODUCT'S DATA ADDED SUCCESSFULLY")
+                choice='y' or "Y"
+                while choice=='y' or "Y":
+                    cur.execute('SELECT PROD_NAME FROM PROD_DETAILS')
+                    stock_avail=cur.fetchall() 
+                    prod_name=input("ENTER PRODUCT'S NAME :- ")
+                    if (prod_name,) in stock_avail:
+                        print("THIS PRODUCT IS ALREADY AVAILABLE IN STOCK")
+                        prod_quantity=int(input("ENTER QUANTITY OF THE PRODUCT :- "))
+                        cur.execute("UPDATE PROD_DETAILS SET PROD_QUANTITY = PROD_QUANTITY+{} WHERE PROD_NAME='{}'".format(prod_quantity,prod_name))
+                        con.commit()
+                        print("PRODUCT UPDATED SUCCESSFULLY")
+                        choice=input("\nDO YOU WANT TO UPDATE ANY OTHER PRODUCT (Y/N):- ")
+                    else:
+                        prod_sell_cost=int(input("ENTER PRODUCT'S SELLING COST :- "))
+                        prod_quantity=int(input("ENTER QUANTITY OF THE PRODUCT :- "))
+                        if prod_quantity>0:
+                            cur.execute("INSERT INTO PROD_DETAILS(PROD_NAME,PROD_SELL_COST,PROD_QUANTITY) VALUES('{}',{},{})".format(prod_name,prod_sell_cost,prod_quantity))
+                            con.commit()
+                            print("PRODUCT ADDED SUCCESSFULLY")
+                            choice=input("\nDO YOU WANT TO UPDATE ANY OTHER PRODUCT (Y/N):- ") 
+                        else:
+                            print("NOT ALLOWED")
+                            break
+
             elif prod_choice==3:
-                prod_id=int(input("ENTER ID OF THE PRODUCT YOU WANT TO REMOVE :- "))
-                cur.execute("DELETE FROM PROD_DETAILS WHERE PROD_ID = {}".format(prod_id))
-                con.commit()
-                print("PRODUCT'S DATA REMOVED SUCCESSFULLY")
+                cur.execute('SELECT PROD_ID FROM PROD_DETAILS;')
+                prod_ids=cur.fetchall()
+                choice='y'
+                while choice=='y':
+                    prod_id=int(input("ENTER ID OF THE PRODUCT YOU WANT TO REMOVE :- "))
+                    if (prod_id,) in prod_ids:
+                        cur.execute("DELETE FROM PROD_DETAILS WHERE PROD_ID = {}".format(prod_id))
+                        con.commit()
+                        print("PRODUCT'S DATA REMOVED SUCCESSFULLY")
+                        choice=input('\nDO YOU WANT TO REMOVE ANY OTHER PRODUCT(Y/N):- ')
+                    elif (prod_id,) not in prod_ids:
+                        print("NO PRODUCT EXISTS WITH THIS PRODUCT ID")
+                        break
+                else:
+                    print("INVALID INPUT")
             elif prod_choice==4:
                 print("WHAT YOU WANT TO UPDATE :- ")
                 print("1. PRODUCT'S NAME\n2. PRODUCTS'S SELL COST")
