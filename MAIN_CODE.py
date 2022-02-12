@@ -1,5 +1,5 @@
 import mysql.connector as mcon
-con = mcon.connect(host = "localhost", user = "root", passwd = "#Vinu@5142.", database = "GROCERY_MANAGEMENT_SYS")
+con = mcon.connect(host = "localhost", user = "root", passwd = "", database = "GROCERY_MANAGEMENT_SYS")
 cur = con.cursor()
 msg1 = "GROCERY MANAGEMENT SYSTEM"
 pmsg1 = msg1.center(120)
