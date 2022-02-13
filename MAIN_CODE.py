@@ -136,6 +136,7 @@ elif choice == 2:
         while choice == 'y':
             cur.execute("SELECT * FROM CUST_DETAILS;")
             data = cur.fetchall()
+
             if len(data) > 0:
                 cust_id = int(input("ENTER CUSTOMER'S ID :- "))
                 cur.execute('DELETE FROM CUST_DETAILS WHERE CUST_ID={}'.format(cust_id))
@@ -151,6 +152,7 @@ elif choice == 2:
         print("1. CUSTOMER'S NAME\n2. CUSTOMER'S ADDRESS\n3. CUSTOMER'S MOBILE NUMBER")
         update_cust = int(input("ENTER YOUR CHOICE (1/2/3):- "))
         which_cust = int(input("ENTER CUSTOMER'S ID :- "))
+
         if update_cust == 1:
             cust_name = int(input("ENTER CUSTOMER'S NAME :- "))
             cur.execute("UPDATE CUST_DETAILS SET CUST_NAME = '{}' WHERE CUST_ID={}".format(
@@ -173,11 +175,14 @@ elif choice == 2:
 
         else:
             print('INVALID INPUT')
+
 elif choice == 3:
     print("MANUFACTURER")
+
 elif choice == 4:
     print("EXITING PROGRAM...")
     time.sleep(2)
     quit()
+
 else:
     print('INVALID INPUT')
