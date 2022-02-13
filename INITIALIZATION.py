@@ -1,7 +1,7 @@
 import mysql.connector as mcon
 import time
 print("INITIALIZING..........")
-con = mcon.connect(host = "localhost", user = "root", passwd = "")
+con = mcon.connect(host = "localhost", user = "root", passwd = "", charset = "utf8")
 time.sleep(1)
 if con.is_connected() == True:
     print("CONNECTION SUCCESSFULL")
@@ -19,7 +19,7 @@ cur.execute("CREATE TABLE IF NOT EXISTS CUST_DETAILS (CUST_ID INT(3) AUTO_INCREM
 cur.execute("CREATE TABLE IF NOT EXISTS PROD_BUY_COST (PROD_ID INT(3) NOT NULL, FOREIGN KEY(PROD_ID) REFERENCES PROD_DETAILS (PROD_ID) ON DELETE CASCADE ON UPDATE CASCADE, MAN_ID INT(3) NOT NULL, FOREIGN KEY(MAN_ID) REFERENCES MAN_DETAILS (MAN_ID) ON DELETE CASCADE ON UPDATE CASCADE, PROD_BUY_COST INT(20) NOT NULL);")
 time.sleep(1)
 print("CREATED REQUIRED TABLES")
-time.sleep(2)
-print("REQUIREMENTS INITIALIZED, YOU CAN START THE GROCERY STORE MANAGEMENT SOFTWARE")
 time.sleep(3)
+print("REQUIREMENTS INITIALIZED, YOU CAN START THE GROCERY STORE MANAGEMENT SOFTWARE")
+time.sleep(2)
 quit()
