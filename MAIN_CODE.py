@@ -66,14 +66,12 @@ if choice == 1:
     elif prod_choice == 3:
         cur.execute('SELECT PROD_ID FROM PROD_DETAILS;')
         prod_ids = cur.fetchall()
-        choice = 'y'
-        while choice == 'y':
-            prod_id = int(
-            input("ENTER ID OF THE PRODUCT YOU WANT TO REMOVE :- "))
+        choice = 'y' or "Y"
+        while choice == 'y' or "Y":
+            prod_id = int(input("ENTER ID OF THE PRODUCT YOU WANT TO REMOVE :- "))
 
             if (prod_id,) in prod_ids:
-                cur.execute(
-                "DELETE FROM PROD_DETAILS WHERE PROD_ID = {}".format(prod_id))
+                cur.execute("DELETE FROM PROD_DETAILS WHERE PROD_ID = {}".format(prod_id))
                 con.commit()
                 print("PRODUCT'S DATA REMOVED SUCCESSFULLY")
                 choice = input('\nDO YOU WANT TO REMOVE ANY OTHER PRODUCT(Y/N):- ')
@@ -102,8 +100,7 @@ if choice == 1:
 # UPDATING PRODUCTS SELLING COST
         elif update_prod == 2:
             prod_update_scost = input("ENTER PRODUCT'S NEW SELLING COST :- ")
-            cur.execute("UPDATE PROD_DETAILS SET PROD_SELL_COST = '{}' WHERE PROD_ID = {}".format(
-            prod_update_scost, which_prod))
+            cur.execute("UPDATE PROD_DETAILS SET PROD_SELL_COST = '{}' WHERE PROD_ID = {}".format(prod_update_scost, which_prod))
             con.commit()
             print("PRODUCT'S SELLING UPDATED SUCCESSFULLY")
 
@@ -259,6 +256,57 @@ elif choice == 3:
                         print("NOT ALLOWED")
                         break
 
+# REMOVING MANUFACTURER
+    elif man_choice == 3:
+        cur.execute('SELECT MAN_ID FROM MAN_DETAILS;')
+        man_ids = cur.fetchall()
+        choice = 'y' or "Y"
+        while choice == 'y' or "Y":
+            man_id = int(input("ENTER ID OF THE MANUFACTURER YOU WANT TO REMOVE :- "))
+
+            if (man_id,) in man_ids:
+                cur.execute("DELETE FROM MAN_DETAILS WHERE MAN_ID = {}".format(man_id))
+                con.commit()
+                print("MANUFACTURER'S DATA REMOVED SUCCESSFULLY")
+                choice = input("\nDO YOU WANT TO REMOVE ANY OTHER MANUFACTURER'S DATA (Y/N):- ")
+
+            elif (man_id,) not in man_ids:
+                print("NO MANUFACTURER EXISTS WITH THIS MANUFACTURER'S ID")
+                break
+
+            else:
+                print("INVALID INPUT")
+
+# UPDATING MANUFACTURER
+    elif man_choice == 4:
+        print("WHAT YOU WANT TO UPDATE :- ")
+        print("1. MANUFACTURER'S NAME\n2. PRODUCT'S BUY COST\n3. QUIT")
+        update_man = int(input("ENTER YOUR CHOICE (1/2/3):- "))
+        which_man = int(input("ENTER MANUFACTURER'S ID :- "))
+
+# UPDATING MANUFACTURER NAME
+        if update_man == 1:
+            man_name = input("ENTER MANUFACTURER'S NAME :- ")
+            cur.execute("UPDATE MAN_DETAILS SET MAN_NAME = '{}' WHERE MAN_ID = {}".format(man_name, which_man))
+            con.commit()
+            print("MANUFACTURER'S NAME UPDATED SUCCESSFULLY")
+
+# UPDATING MANUFACTURERS BUYING COST
+        elif update_man == 2:
+            which_prod = int(input("ENTER PRODUCT ID :- "))
+            prod_update_bcost = int(input("ENTER PRODUCT'S NEW BUYING COST :- "))
+            cur.execute("UPDATE MAN_DETAILS SET PROD_BUY_COST = {} WHERE PROD_ID = {}".format(prod_update_bcost, which_prod))
+            con.commit()
+            print("PRODUCT'S BUYING COST UPDATED SUCCESSFULLY")
+
+# QUIT PROGRAM
+        elif man_choice == 5:
+            print("EXITING PROGRAM...")
+            time.sleep(2)
+            quit()
+
+        else:
+            print('INVALID INPUT')
 
 # QUIT PROGRAM
 elif choice == 4:
