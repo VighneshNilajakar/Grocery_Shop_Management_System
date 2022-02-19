@@ -1,34 +1,29 @@
 # CONNECTING DATABASE AND ADDING REQUIREMENTS
-from random import choice
-from turtle import update
-
-
-def CONNECT():
-    import mysql.connector as mcon
-    import time
-
-    con = mcon.connect(host="localhost", user="root", passwd="#Vinu@5142.", database="GROCERY_MANAGEMENT_SYS", charset = "utf8")
-    cur = con.cursor()
-
-    msg1 = "GROCERY MANAGEMENT SYSTEM\n\n"
-    pmsg1 = msg1.center(120)
-    print(pmsg1)
+import mysql.connector as mcon
+import time
+con = mcon.connect(host="localhost", user="root", passwd="", database="GROCERY_MANAGEMENT_SYS", charset = "utf8")
+cur = con.cursor()
+msg1 = "\nGROCERY MANAGEMENT SYSTEM\n"
+pmsg1 = msg1.center(120)
+print(pmsg1)
 
 # MAIN MENU
 def MAIN_MENU():
-    print("MAIN MENU")
+    print("\nMAIN MENU\n")
     print("CHOOSE FROM THE FOLLOWING OPTIONS :-")
-    print("1. PRODUCT DATA\n2. CUSTOMER DATA\n3. MANUFACTURER DATA\n4. QUIT")
+    print("1. PRODUCT DATA\n2. CUSTOMER DATA\n3. MANUFACTURER DATA\n4. QUIT\n")
     choice = int(input('ENTER YOUR CHOICE (1/2/3/4):- '))
     if choice == 1:
         PRODUCT_DATA_MENU()
+    elif choice == 2:
+        CUSTOMER_DATA_MENU
 
 
 # PRODUCT DATA MENU
 def PRODUCT_DATA_MENU():
-    print("PRODUCT DATA MENU")
+    print("\nPRODUCT DATA MENU\n")
     print("CHOOSE FROM THE FOLLOWING OPTIONS :-")
-    print("1. PRODUCT DETAILS\n2. ADD PRODUCT DATA\n3. REMOVE PRODUCT DATA\n4. UPDATE PRODUCT DATA\n5. MAIN MENU\n6. QUIT")
+    print("1. PRODUCT DETAILS\n2. ADD PRODUCT DATA\n3. REMOVE PRODUCT DATA\n4. UPDATE PRODUCT DATA\n5. MAIN MENU\n6. QUIT\n")
     prod_choice = int(input('ENTER YOUR CHOICE (1/2/3/4/5):- '))
     if prod_choice == 1:
         PRODUCT_DETAILS()
@@ -157,9 +152,16 @@ def UPDATE_PRODUCT_SELLING_COST():
     UPDATE_PRODUCT_DATA_MENU()
 
 
+# CUSTOMER DATA MENU
+def CUSTOMER_DATA_MENU():
+    print("\n\nCUSTOMER DATA MENU\n\n")
+    print("\nCHOOSE FROM THE FOLLOWING OPTIONS :-\n")
+    print("1. CUSTORMER DETAILS\n2. ADD CUSTOMER DATA\n3. REMOVE CUSTOMER DATA\n4. UPDATE CUSTOMER DATA\n5. QUIT\n")
+    cust_choice = int(input("ENTER YOUR CHOICE (1/2/3/4/5):- "))
 
 
 
 
-CONNECT()
+
+
 MAIN_MENU()
