@@ -215,7 +215,7 @@ def ADD_CUSTOMER_DATA():
             if choice == 'y':
                 ADD_CUSTOMER_DATA()
             else:
-                print("GOING BACK TO THE CUSTOMER DATA MENU....")
+                print("GOING BACK TO THE CUSTOMER DATA MENU")
                 CUSTOMER_DATA_MENU()
 
 # REMOVE CUSTOMER DATA
