@@ -1,4 +1,5 @@
 # IMPORTING REQUIRED MODULES
+from random import choice
 import mysql.connector as mcon
 import time
 
@@ -85,6 +86,7 @@ def ADD_PRODUCT_DATA():
             print("PRODUCT UPDATED SUCCESSFULLY")
             choice = input("\nDO YOU WANT TO ADD ANY OTHER PRODUCT (Y/N):- ")
             choice.lower()
+            break
         else:
             prod_sell_cost = int(input("ENTER PRODUCT SELLING COST :- "))
             prod_quantity = int(input("ENTER QUANTITY OF THE PRODUCT :- "))
@@ -94,6 +96,7 @@ def ADD_PRODUCT_DATA():
                 print("PRODUCT ADDED SUCCESSFULLY")
                 choice = input("\nDO YOU WANT TO ADD ANY OTHER PRODUCT (Y/N):- ")
                 choice.lower()
+                break
             else:
                 print("PLEASE CHOOSE AN APPROPRIATE OPTION/nGOING BACK TO THE PRODUCT DATA MENU")
                 PRODUCT_DATA_MENU()
@@ -111,11 +114,12 @@ def REMOVE_PRODUCT_DATA():
             print("PRODUCT DATA REMOVED SUCCESSFULLY")
             choice = input('\nDO YOU WANT TO REMOVE ANY OTHER PRODUCT(Y/N):- ')
             choice.lower()
+            break
         elif (prod_id,) not in prod_ids:
             print("NO PRODUCT EXISTS WITH THIS PRODUCT ID\nGOING BACK TO THE PRODUCT DATA MENU")
             PRODUCT_DATA_MENU()
         else:
-            print("PLEASE CHOOSE AN APPROPRIATE OPTION\nGOING BACK TO THE PRODUCT DATA MENU....")
+            print("PLEASE CHOOSE AN APPROPRIATE OPTION\nGOING BACK TO THE PRODUCT DATA MENU")
             PRODUCT_DATA_MENU()
 
 # UPDATE PRODUCT DATA MENU
@@ -181,39 +185,38 @@ def CUSTOMER_DATA_MENU():
 
 # CUSTOMER DETAILS
 def CUSTOMER_DETAILS():
-    cur.execute("SELECT * FROM CUST_DETAILS;")
-    cust_details = cur.fetchll()
-    print()
-    if len(cust_details) > 0:
-        for j in cust_details:
-            print(j)
-        ch = print("DO YOU WANT TO GO BACK TO THE CUSTOMER DATA MENU (Y/N):-")
-        ch.lower()
-        if ch == 'y' :
+    while choice == "y":
+        cur.execute("SELECT * FROM CUST_DETAILS;")
+        cust_details = cur.fetchll()
+        print()
+        if len(cust_details) > 0:
+            for j in cust_details:
+                print(j)
+                choice = print("DO YOU WANT TO GO BACK TO THE CUSTOMER DATA MENU (Y/N):-")
+                choice.lower()
+                break
+        else:
+            print("NO CUSTOMER DATA\nGOING BACK TO THE CUSTOMER DATA MENU....")
             CUSTOMER_DATA_MENU()
-        else :
-            print(" ")
-    else:
-        print("NO CUSTOMER DATA\nGOING BACK TO THE CUSTOMER DATA MENU....")
-        CUSTOMER_DATA_MENU()
 
 # ADD CUSTOMER DATA
 def ADD_CUSTOMER_DATA():
-    choice = "y"
-    while choice == "y":
         cust_name = input("ENTER CUSTOMER NAME :- ")
         cust_mno = int(input("ENTER CUSTOMER MOBILE NUMBER :-"))
         cust_adrs = input("ENTER CUSTOMER ADDRESS :- ")
-        cur.execute("INSERT INTO CUST_DETAILS(CUST_NAME,CUST_MNO,CUST_ADRS) VALUES('{}','{}',{})".format(cust_name, cust_mno, cust_adrs))
-        con.commit()
-        print("CUSTOMER DATA ADDED SUCCESSFULLY")
-        choice = input("\nDO YOU WANT TO ADD MORE CUSTOMER DATA(Y/N):- ")
-        choice.lower()
-        if choice == 'y':
-            ADD_CUSTOMER_DATA()
-        else:
-            print("GOING BACK TO THE CUSTOMER DATA MENU....")
-            CUSTOMER_DATA_MENU()
+        choice = "y"
+        while choice == "y":
+            cur.execute("INSERT INTO CUST_DETAILS(CUST_NAME,CUST_MNO,CUST_ADRS) VALUES('{}','{}',{})".format(cust_name, cust_mno, cust_adrs))
+            con.commit()
+            print("CUSTOMER DATA ADDED SUCCESSFULLY")
+            choice = input("\nDO YOU WANT TO ADD MORE CUSTOMER DATA(Y/N):- ")
+            choice.lower()
+            break
+            if choice == 'y':
+                ADD_CUSTOMER_DATA()
+            else:
+                print("GOING BACK TO THE CUSTOMER DATA MENU....")
+                CUSTOMER_DATA_MENU()
 
 # REMOVE CUSTOMER DATA
 def REMOVE_CUSTOMER_DATA():
@@ -228,12 +231,9 @@ def REMOVE_CUSTOMER_DATA():
             print("CUSTOMER DATA REMOVED SUCCESSFULLY")
             choice = input("\nDO YOU WANT TO REMOVE ANY OTHER CUSTOMER DATA(Y/N) :- ")
             choice.lower()
-        elif choice == 'n':
-            print("NO CUSTOMER'S DATA FOUND WITH THIS CUSTOMER ID")
-            choice = input("\nDO YOU WANT TO REMOVE ANY OTHER CUSTOMER DATA(Y/N): -")
-            choice.lower()
+            break
         else:    
-            print("GOING BACK TO THE CUSTOMER DATA MENU....")
+            print("GOING BACK TO THE CUSTOMER DATA MENU")
             CUSTOMER_DATA_MENU()
 
 # UPDATE CUSTOMER DATA MENU
@@ -305,20 +305,19 @@ def MANUFACTURER_DATA_MENU():
 
 # MANUFACTURER DETAILS
 def MANUFACTURER_DETAILS():
-    cur.execute("SELECT * FROM MAN_DETAILS;")
-    man_data = cur.fetchall()
-    if len(man_data) > 0:
-        for i in man_data:
-            print(i)
-        ch = print("DO YOU WANT TO GO BACK TO THE MANUFACTURER DATA MENU (Y/N):-")
-        ch.lower()
-        if ch == 'y' :
-            CUSTOMER_DATA_MENU()
-        else :
-            print(" ")
-    else:
-        print("NO MANUFACTURE DATA\nGOING BACK TO THE MANUFACTURER DATA MENU")
-        MANUFACTURER_DATA_MENU()
+    choice = "y"
+    while choice == "y":
+        cur.execute("SELECT * FROM MAN_DETAILS;")
+        man_data = cur.fetchall()
+        if len(man_data) > 0:
+            for i in man_data:
+                print(i)
+            choice = print("DO YOU WANT TO GO BACK TO THE MANUFACTURER DATA MENU (Y/N):-")
+            choice.lower()
+            break
+        else:
+            print("NO MANUFACTURE DATA\nGOING BACK TO THE MANUFACTURER DATA MENU")
+            MANUFACTURER_DATA_MENU()
 
 # ADD MANUFACTURER DATA
 def ADD_MANUFACTURER_DATA():
@@ -335,6 +334,7 @@ def ADD_MANUFACTURER_DATA():
             print("PRODUCT ID UPDATED SUCCESSFULLY")
             choice = input("\nDO YOU WANT TO UPDATE ANY OTHER MANUFACTURER DATA (Y/N):- ")
             choice.lower()
+            break
         else:
             man_name = input("ENTER MANUFACTURER NAME :- ")
             prod_id = int(input("ENTER PRODUCT ID OF THE PRODUCT BY MANUFACTURER :- "))
@@ -344,6 +344,7 @@ def ADD_MANUFACTURER_DATA():
                 print("MANUFACTURER ADDED SUCCESSFULLY")
                 choice = input("\nDO YOU WANT TO UPDATE ANY OTHER MANUFACTURER DATA (Y/N):- ")
                 choice.lower()
+                break
             else:
                 print("PLEASE CHOOSE AN APPRORIATE OPTION\nGOING BACK TO MANUFACTURER DATA MENU")
                 MANUFACTURER_DATA_MENU()
@@ -361,6 +362,7 @@ def REMOVE_MANUFACTURER_DATA():
             print("MANUFACTURER DATA REMOVED SUCCESSFULLY")
             choice = input("\nDO YOU WANT TO REMOVE ANY OTHER MANUFACTURER DATA (Y/N):- ")
             choice.lower()
+            break
         else :
             print("NO MANUFACTURER EXISTS WITH THIS MANUFACTURER ID\nGOING BACK TO MANUFACTURER DATA MENU")
             MANUFACTURER_DATA_MENU()
