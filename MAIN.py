@@ -212,11 +212,11 @@ def ADD_CUSTOMER_DATA():
             choice = input("\nDO YOU WANT TO ADD MORE CUSTOMER DATA(Y/N):- ")
             choice.lower()
             break
-            if choice == 'y':
-                ADD_CUSTOMER_DATA()
-            else:
-                print("GOING BACK TO THE CUSTOMER DATA MENU")
-                CUSTOMER_DATA_MENU()
+        if choice == 'y':
+            ADD_CUSTOMER_DATA()
+        else:
+            print("GOING BACK TO THE CUSTOMER DATA MENU")
+            CUSTOMER_DATA_MENU()
 
 # REMOVE CUSTOMER DATA
 def REMOVE_CUSTOMER_DATA():
