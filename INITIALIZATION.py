@@ -3,7 +3,7 @@ import time
 
 def initialize():
     print("INITIALIZING..........")
-    con = mcon.connect(host = "localhost", user = "root", passwd = "", charset = "utf8")
+    con = mcon.connect(host = "localhost", user = "root", passwd = "#Vinu@5142.", charset = "utf8")
     time.sleep(1)
     if con.is_connected() == True:
         print("CONNECTION SUCCESSFULL")
@@ -33,13 +33,12 @@ print(pmsg1)
 
 print("WARNING : THIS PROCESS RESETS THE GROCERY SHOP MANAGEMENT SYSTEM IF ALREADY INSTALLED")
 choice = input("DO YOU WANT TO INSTALL PRE-REQUISITES FOR GROCERY MANAGEMENT SYSTEM (Y/N):- ")
-choice.lower()
-if choice == y:
+if choice == "Y":
     initialize()
-elif choice == n:
+elif choice == "N":
     print("OK, QUITING THE SYSTEM")
     time.sleep(2)
     quit()
 else :
     print("CHOOSE THE CORRECT OPTIONS")
-    initialize()
+    quit()
