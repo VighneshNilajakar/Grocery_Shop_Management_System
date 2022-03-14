@@ -3,7 +3,7 @@ import time
 
 def initialize():
     print("INITIALIZING..........")
-    con = mcon.connect(host = "localhost", user = "root", passwd = "#Vinu@5142.", charset = "utf8")
+    con = mcon.connect(host = "localhost", user = "root", passwd = "", charset = "utf8")
     time.sleep(1)
     if con.is_connected() == True:
         print("CONNECTION SUCCESSFULL")

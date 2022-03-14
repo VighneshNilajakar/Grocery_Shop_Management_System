@@ -61,9 +61,8 @@ def PRODUCT_DETAILS():
     if len(prod_data) > 0:
         for i in prod_data:
             print(i)
-        ch = print("DO YOU WANT TO GO BACK TO THE CUSTOMER DATA MENU (Y/N):-")
-        ch.lower()
-        if ch == 'y' :
+        ch = print("DO YOU WANT TO GO BACK TO THE PRODUCT DATA MENU (Y/N):-")
+        if ch == 'Y' :
             PRODUCT_DATA_MENU()
         else :
             print(" ")
@@ -185,19 +184,16 @@ def CUSTOMER_DATA_MENU():
 
 # CUSTOMER DETAILS
 def CUSTOMER_DETAILS():
-    while choice == "y":
-        cur.execute("SELECT * FROM CUST_DETAILS;")
-        cust_details = cur.fetchll()
-        print()
-        if len(cust_details) > 0:
-            for j in cust_details:
-                print(j)
-                choice = print("DO YOU WANT TO GO BACK TO THE CUSTOMER DATA MENU (Y/N):-")
-                choice.lower()
-                break
-        else:
-            print("NO CUSTOMER DATA\nGOING BACK TO THE CUSTOMER DATA MENU....")
-            CUSTOMER_DATA_MENU()
+    cur.execute("SELECT * FROM CUST_DETAILS;")
+    cust_details = cur.fetchall()
+    print()
+    if len(cust_details) > 0:
+        for j in cust_details:
+            print(j)
+            break
+    else:
+        print("NO CUSTOMER DATA\nGOING BACK TO THE CUSTOMER DATA MENU....")
+        CUSTOMER_DATA_MENU()
 
 # ADD CUSTOMER DATA
 def ADD_CUSTOMER_DATA():
@@ -206,7 +202,7 @@ def ADD_CUSTOMER_DATA():
         cust_adrs = input("ENTER CUSTOMER ADDRESS :- ")
         choice = "y"
         while choice == "y":
-            cur.execute("INSERT INTO CUST_DETAILS(CUST_NAME,CUST_MNO,CUST_ADRS) VALUES('{}','{}',{})".format(cust_name, cust_mno, cust_adrs))
+            cur.execute("INSERT INTO CUST_DETAILS(CUST_NAME,CUST_MNO,CUST_ADRS) VALUES('{}',{},'{}')".format(cust_name, cust_mno, cust_adrs))
             con.commit()
             print("CUSTOMER DATA ADDED SUCCESSFULLY")
             choice = input("\nDO YOU WANT TO ADD MORE CUSTOMER DATA(Y/N):- ")
@@ -227,7 +223,7 @@ def REMOVE_CUSTOMER_DATA():
         if len(data) > 0:
             cust_id = int(input("ENTER CUSTOMER ID :- "))
             cur.execute('DELETE FROM CUST_DETAILS WHERE CUST_ID={}'.format(cust_id))
-            con.cummit()
+            con.commit()
             print("CUSTOMER DATA REMOVED SUCCESSFULLY")
             choice = input("\nDO YOU WANT TO REMOVE ANY OTHER CUSTOMER DATA(Y/N) :- ")
             choice.lower()
@@ -260,7 +256,7 @@ def UPDATE_CUSTOMER_DATA_MENU():
 
 # UPDATE CUSTOMER NAME
 def UPDATE_CUSTOMER_NAME():
-    cust_name = int(input("ENTER CUSTOMER NAME :- "))
+    cust_name = (input("ENTER CUSTOMER NAME :- "))
     cur.execute("UPDATE CUST_DETAILS SET CUST_NAME = '{}' WHERE CUST_ID={}".format(cust_name, which_cust))
     con.commit()
     print("CUSTOMER NAME UPDATED SUCCESSFULLY\nGOING BACK TO UPDATE CUSTOMER DATA MENU")
