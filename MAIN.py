@@ -301,19 +301,15 @@ def MANUFACTURER_DATA_MENU():
 
 # MANUFACTURER DETAILS
 def MANUFACTURER_DETAILS():
-    choice = "y"
-    while choice == "y":
-        cur.execute("SELECT * FROM MAN_DETAILS;")
-        man_data = cur.fetchall()
-        if len(man_data) > 0:
-            for i in man_data:
-                print(i)
-            choice = print("DO YOU WANT TO GO BACK TO THE MANUFACTURER DATA MENU (Y/N):-")
-            choice.lower()
+    cur.execute("SELECT * FROM MAN_DETAILS;")
+    man_data = cur.fetchall()
+    if len(man_data) > 0:
+        for i in man_data:
+            print(i)
             break
-        else:
-            print("NO MANUFACTURE DATA\nGOING BACK TO THE MANUFACTURER DATA MENU")
-            MANUFACTURER_DATA_MENU()
+    else:
+        print("NO MANUFACTURE DATA\nGOING BACK TO THE MANUFACTURER DATA MENU")
+        MANUFACTURER_DATA_MENU()
 
 # ADD MANUFACTURER DATA
 def ADD_MANUFACTURER_DATA():
@@ -332,7 +328,6 @@ def ADD_MANUFACTURER_DATA():
             choice.lower()
             break
         else:
-            man_name = input("ENTER MANUFACTURER NAME :- ")
             prod_id = int(input("ENTER PRODUCT ID OF THE PRODUCT BY MANUFACTURER :- "))
             if prod_id > 0:
                 cur.execute("INSERT INTO MAN_DETAILS(MAN_NAME,PROD_ID) VALUES('{}',{})".format(man_name, prod_id))
