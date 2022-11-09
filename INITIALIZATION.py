@@ -34,6 +34,8 @@ print(pmsg1)
 print("WARNING : THIS PROCESS RESETS THE GROCERY SHOP MANAGEMENT SYSTEM IF ALREADY INSTALLED")
 choice = input("DO YOU WANT TO INSTALL PRE-REQUISITES FOR GROCERY MANAGEMENT SYSTEM (Y/N):- ")
 if choice == "Y":
+    u = input("Enter User Name :")
+    p = input("Enter User Password :")
     initialize()
 elif choice == "N":
     print("OK, QUITING THE SYSTEM")
