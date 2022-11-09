@@ -400,5 +400,8 @@ def QUIT():
     quit()
 
 # EXECUTION
+print("Please Sign in into your Database")
+u = input("Enter User Name :")
+p = input("Enter User Password :")
 CONNECT()
 MAIN_MENU()
